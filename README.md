@@ -22,23 +22,7 @@
 <span class="pl-c"># aaabdaaabac</span>
 <span class="pl-s1">tokenizer</span>.<span class="pl-en">save</span>(<span class="pl-s">"toy"</span>)
 <span class="pl-c"># writes two files: toy.model (for loading) and toy.vocab (for viewing)</span></pre><div class="zeroclipboard-container">
-    <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 tooltipped-no-delay d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="from minbpe import BasicTokenizer
-tokenizer = BasicTokenizer()
-text = &quot;aaabdaaabac&quot;
-tokenizer.train(text, 256 + 3) # 256 are the byte tokens, then do 3 merges
-print(tokenizer.encode(text))
-# [258, 100, 258, 97, 99]
-print(tokenizer.decode([258, 100, 258, 97, 99]))
-# aaabdaaabac
-tokenizer.save(&quot;toy&quot;)
-# writes two files: toy.model (for loading) and toy.vocab (for viewing)" tabindex="0" role="button">
-      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
-    <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
-</svg>
-      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
-    <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
-</svg>
-    </clipboard-copy>
+    
   </div></div>
 <p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">根据 Wikipedia，对输入字符串“aaabdaaabac”运行 bpe 进行 3 次合并会生成字符串：“XdXac”，其中 X=ZY、Y=ab 和 Z=aa。</font><font style="vertical-align: inherit;">需要注意的棘手之处在于，minbpe 始终将 256 个单独字节分配为令牌，然后根据需要合并字节。</font><font style="vertical-align: inherit;">所以对于我们来说 a=97、b=98、c=99、d=100（它们的</font></font><a href="https://www.asciitable.com" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">ASCII</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">值）。</font><font style="vertical-align: inherit;">然后，当 (a,a) 合并到 Z 时，Z 将变为 256。同样，Y 将变为 257，X 变为 258。因此，我们从 256 字节开始，进行 3 次合并以获得上面的结果，预期输出为[258、100、258、97、99]。</font></font></p>
 <div class="markdown-heading" dir="auto"><h2 tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">推论：GPT-4比较</font></font></h2><a id="user-content-inference-gpt-4-comparison" class="anchor-element" aria-label="永久链接：推理：GPT-4 比较" href="#inference-gpt-4-comparison"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
@@ -56,26 +40,7 @@ tokenizer.save(&quot;toy&quot;)
 <span class="pl-s1">tokenizer</span> <span class="pl-c1">=</span> <span class="pl-v">GPT4Tokenizer</span>()
 <span class="pl-en">print</span>(<span class="pl-s1">tokenizer</span>.<span class="pl-en">encode</span>(<span class="pl-s1">text</span>))
 <span class="pl-c"># [15339, 4513, 12340, 30, 320, 31495, 230, 75265, 243, 92245, 16715, 57037]</span></pre><div class="zeroclipboard-container">
-    <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 tooltipped-no-delay d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="text = &quot;hello123!!!? (안녕하세요!) 😉&quot;
-
-# tiktoken
-import tiktoken
-enc = tiktoken.get_encoding(&quot;cl100k_base&quot;)
-print(enc.encode(text))
-# [15339, 4513, 12340, 30, 320, 31495, 230, 75265, 243, 92245, 16715, 57037]
-
-# ours
-from minbpe import GPT4Tokenizer
-tokenizer = GPT4Tokenizer()
-print(tokenizer.encode(text))
-# [15339, 4513, 12340, 30, 320, 31495, 230, 75265, 243, 92245, 16715, 57037]" tabindex="0" role="button">
-      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
-    <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
-</svg>
-      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
-    <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
-</svg>
-    </clipboard-copy>
+     
   </div></div>
 <p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">（你必须</font></font><code>pip install tiktoken</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">跑）。</font><font style="vertical-align: inherit;">在底层，它</font></font><code>GPT4Tokenizer</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">只是一个轻量级的包装器</font></font><code>RegexTokenizer</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">，传递 GPT-4 的合并和特殊标记。</font><font style="vertical-align: inherit;">我们还可以确保特殊令牌得到正确处理：</font></font></p>
 <div class="highlight highlight-source-python notranslate position-relative overflow-auto" dir="auto"><pre><span class="pl-s1">text</span> <span class="pl-c1">=</span> <span class="pl-s">"&lt;|endoftext|&gt;hello world"</span>
@@ -91,26 +56,7 @@ print(tokenizer.encode(text))
 <span class="pl-s1">tokenizer</span> <span class="pl-c1">=</span> <span class="pl-v">GPT4Tokenizer</span>()
 <span class="pl-en">print</span>(<span class="pl-s1">tokenizer</span>.<span class="pl-en">encode</span>(<span class="pl-s1">text</span>, <span class="pl-s1">allowed_special</span><span class="pl-c1">=</span><span class="pl-s">"all"</span>))
 <span class="pl-c"># [100257, 15339, 1917]</span></pre><div class="zeroclipboard-container">
-    <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 tooltipped-no-delay d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="text = &quot;<|endoftext|>hello world&quot;
-
-# tiktoken
-import tiktoken
-enc = tiktoken.get_encoding(&quot;cl100k_base&quot;)
-print(enc.encode(text, allowed_special=&quot;all&quot;))
-# [100257, 15339, 1917]
-
-# ours
-from minbpe import GPT4Tokenizer
-tokenizer = GPT4Tokenizer()
-print(tokenizer.encode(text, allowed_special=&quot;all&quot;))
-# [100257, 15339, 1917]" tabindex="0" role="button">
-      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
-    <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
-</svg>
-      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
-    <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
-</svg>
-    </clipboard-copy>
+    
   </div></div>
 <p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">请注意，就像 tiktoken 一样，我们必须在编码调用中显式声明使用和解析特殊令牌的意图。</font><font style="vertical-align: inherit;">否则，这可能会成为一个主要的枪口，无意中用特殊令牌标记攻击者控制的数据（例如用户提示）。</font><font style="vertical-align: inherit;">该</font></font><code>allowed_special</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">参数可以设置为“all”、“none”或允许的特殊标记列表。</font></font></p>
 <div class="markdown-heading" dir="auto"><h2 tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">训练</font></font></h2><a id="user-content-training" class="anchor-element" aria-label="永久链接： 培训" href="#training"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
@@ -123,20 +69,7 @@ print(tokenizer.encode(text, allowed_special=&quot;all&quot;))
 <span class="pl-s1">tokenizer</span>.<span class="pl-en">decode</span>([<span class="pl-c1">1000</span>, <span class="pl-c1">2000</span>, <span class="pl-c1">3000</span>]) <span class="pl-c"># tokens -&gt; string</span>
 <span class="pl-s1">tokenizer</span>.<span class="pl-en">save</span>(<span class="pl-s">"mymodel"</span>) <span class="pl-c"># writes mymodel.model and mymodel.vocab</span>
 <span class="pl-s1">tokenizer</span>.<span class="pl-en">load</span>(<span class="pl-s">"mymodel.model"</span>) <span class="pl-c"># loads the model back, the vocab is just for vis</span></pre><div class="zeroclipboard-container">
-    <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 tooltipped-no-delay d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="from minbpe import BasicTokenizer
-tokenizer = BasicTokenizer()
-tokenizer.train(very_long_training_string, vocab_size=4096)
-tokenizer.encode(&quot;hello world&quot;) # string -> tokens
-tokenizer.decode([1000, 2000, 3000]) # tokens -> string
-tokenizer.save(&quot;mymodel&quot;) # writes mymodel.model and mymodel.vocab
-tokenizer.load(&quot;mymodel.model&quot;) # loads the model back, the vocab is just for vis" tabindex="0" role="button">
-      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
-    <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
-</svg>
-      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
-    <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
-</svg>
-    </clipboard-copy>
+   
   </div></div>
 <p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">如果您想效仿 OpenAI 的文本标记器，最好采用他们使用正则表达式模式按类别分割文本的方法。</font><font style="vertical-align: inherit;">GPT-4 模式是 的默认模式</font></font><code>RegexTokenizer</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">，因此您只需执行以下操作即可：</font></font></p>
 <div class="highlight highlight-source-python notranslate position-relative overflow-auto" dir="auto"><pre><span class="pl-k">from</span> <span class="pl-s1">minbpe</span> <span class="pl-k">import</span> <span class="pl-v">RegexTokenizer</span>
@@ -146,20 +79,7 @@ tokenizer.load(&quot;mymodel.model&quot;) # loads the model back, the vocab is j
 <span class="pl-s1">tokenizer</span>.<span class="pl-en">decode</span>([<span class="pl-c1">1000</span>, <span class="pl-c1">2000</span>, <span class="pl-c1">3000</span>]) <span class="pl-c"># tokens -&gt; string</span>
 <span class="pl-s1">tokenizer</span>.<span class="pl-en">save</span>(<span class="pl-s">"tok32k"</span>) <span class="pl-c"># writes tok32k.model and tok32k.vocab</span>
 <span class="pl-s1">tokenizer</span>.<span class="pl-en">load</span>(<span class="pl-s">"tok32k.model"</span>) <span class="pl-c"># loads the model back from disk</span></pre><div class="zeroclipboard-container">
-    <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 tooltipped-no-delay d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="from minbpe import RegexTokenizer
-tokenizer = RegexTokenizer()
-tokenizer.train(very_long_training_string, vocab_size=32768)
-tokenizer.encode(&quot;hello world&quot;) # string -> tokens
-tokenizer.decode([1000, 2000, 3000]) # tokens -> string
-tokenizer.save(&quot;tok32k&quot;) # writes tok32k.model and tok32k.vocab
-tokenizer.load(&quot;tok32k.model&quot;) # loads the model back from disk" tabindex="0" role="button">
-      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
-    <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
-</svg>
-      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
-    <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
-</svg>
-    </clipboard-copy>
+     
   </div></div>
 <p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">当然，您希望根据数据集的大小来更改词汇表大小。</font></font></p>
 <p dir="auto"><strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">特殊令牌</font></font></strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">。</font><font style="vertical-align: inherit;">最后，您可能希望向标记生成器添加特殊标记。</font><font style="vertical-align: inherit;">使用该函数注册它们</font></font><code>register_special_tokens</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">。</font><font style="vertical-align: inherit;">例如，如果您使用 vocab_size 32768 进行训练，则前 256 个标记是原始字节标记，接下来的 32768-256 个标记是合并标记，在这些标记之后您可以添加特殊标记。</font><font style="vertical-align: inherit;">最后一个“真实”合并令牌的 id 为 32767 (vocab_size - 1)，因此您的第一个特殊令牌应该紧随其后，其 id 恰好为 32768。所以：</font></font></p>
@@ -168,31 +88,13 @@ tokenizer.load(&quot;tok32k.model&quot;) # loads the model back from disk" tabin
 <span class="pl-s1">tokenizer</span>.<span class="pl-en">train</span>(<span class="pl-s1">very_long_training_string</span>, <span class="pl-s1">vocab_size</span><span class="pl-c1">=</span><span class="pl-c1">32768</span>)
 <span class="pl-s1">tokenizer</span>.<span class="pl-en">register_special_tokens</span>({<span class="pl-s">"&lt;|endoftext|&gt;"</span>: <span class="pl-c1">32768</span>})
 <span class="pl-s1">tokenizer</span>.<span class="pl-en">encode</span>(<span class="pl-s">"&lt;|endoftext|&gt;hello world"</span>, <span class="pl-s1">allowed_special</span><span class="pl-c1">=</span><span class="pl-s">"all"</span>)</pre><div class="zeroclipboard-container">
-    <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 tooltipped-no-delay d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="from minbpe import RegexTokenizer
-tokenizer = RegexTokenizer()
-tokenizer.train(very_long_training_string, vocab_size=32768)
-tokenizer.register_special_tokens({&quot;<|endoftext|>&quot;: 32768})
-tokenizer.encode(&quot;<|endoftext|>hello world&quot;, allowed_special=&quot;all&quot;)" tabindex="0" role="button">
-      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
-    <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
-</svg>
-      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
-    <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
-</svg>
-    </clipboard-copy>
+   
   </div></div>
 <p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">当然，您也可以根据需要添加更多令牌。</font><font style="vertical-align: inherit;">最后，我想强调，我努力保持代码本身的干净、可读和可修改。</font><font style="vertical-align: inherit;">您不应该害怕阅读代码并理解它是如何工作的。</font><font style="vertical-align: inherit;">这些测试也是寻找更多使用示例的好地方。</font><font style="vertical-align: inherit;">这让我想起：</font></font></p>
 <div class="markdown-heading" dir="auto"><h2 tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">测试</font></font></h2><a id="user-content-tests" class="anchor-element" aria-label="永久链接：测试" href="#tests"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
 <p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">我们使用 pytest 库进行测试。</font><font style="vertical-align: inherit;">它们全部位于该</font></font><code>tests/</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">目录中。</font><font style="vertical-align: inherit;">首先</font></font><code>pip install pytest</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">，如果您还没有，那么：</font></font></p>
 <div class="highlight highlight-source-shell notranslate position-relative overflow-auto" dir="auto"><pre>$ pytest -v <span class="pl-c1">.</span></pre><div class="zeroclipboard-container">
-    <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 tooltipped-no-delay d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="$ pytest -v ." tabindex="0" role="button">
-      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
-    <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
-</svg>
-      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
-    <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
-</svg>
-    </clipboard-copy>
+    
   </div></div>
 <p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">运行测试。</font><font style="vertical-align: inherit;">（-v 是冗长的，稍微漂亮一些）。</font></font></p>
 <div class="markdown-heading" dir="auto"><h2 tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">锻炼</font></font></h2><a id="user-content-exercise" class="anchor-element" aria-label="永久链接： 锻炼" href="#exercise"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
